@@ -65,7 +65,7 @@ How do you add a table, column, (or anything else) to a database.
   class Task < ApplicationRecord 
   end 
   ```
-  This will create a `Task` model, mapped to a `tasks` table in the database, and provide the ability to map each column in the associated table to attributes of the `Task` class. So for a task with the following create statement:
+  This will create a `Task` model, mapped to a `tasks` table in the database (assuming this exists), and provide the ability to map each column in the associated table to attributes of the `Task` class. So for a task with the following create statement:
   ```sql 
   CREATE TABLE tasks (
     id int(11) NOT NULL auto_increment, 
@@ -74,8 +74,40 @@ How do you add a table, column, (or anything else) to a database.
   )
   ``` 
   ... we would have attributes of `name` and `id` for our `Task` class. Once this is setup, we can begin adding new records to our database. 
+  
+  If this was made with using proper ActiveRecord convention, the `db/schema.rb` should reflect the attributes of all the models (assuming associated classes have been created)
 
 2. Create a new record: 
+
+  Without active record we would instantiate objects in a manner similar to the following: `Task.new(1, "pickup groceries")`. However, with ActiveRecord in place, we must instantiate new instances of our models using the ActiveRecord instantiation - which uses a **single** argument of a hash. This has should contain in key value paris, all the information to construct the object. 
+  ```rb
+  Task.new({
+    name: "Pickup groceries"
+  })
+  ## A more abstract example:
+  cat = Cat.new({
+    name: "Fluffy", 
+    breed: "Long-hair", 
+    age: 4
+  })
+  # Convention typically omits curly's so you would most often see it like this: 
+  cat = Cat.new(
+    name: "Fluffy", 
+    breed: "Long-hair", 
+    age: 4
+  )
+  ```
+  At this point the record exists **only** in memory. In order to get the model to persist in the database, you would need to call the `save` method on the ActiveRecord model. 
+  ```rb
+  # save a cat object
+  cat.save 
+  # additionally you can create and save an ActiveRecord object in a single step using the `create` method 
+  cat = Cat.create(
+      name: "Fluffy", 
+      breed: "Long-hair", 
+      age: 4
+  )
+  ```
 
   Assuming we have created the table in the database like the example above, Active Record will now map attributes of `name` and `id` to the `Task` class. By default, this mapping is performed as a result from inheriting from `ActiveRecord` or more specifically `ActiveRecord::Base`. However, if there is a scenario in which AR would not understand the mapping from singular to plural (odd cases like `Moose` => `moose` for example, may not work), you can override the default mapping using `ActiveRecord::Base.table_name=`followed by the name of the table for which AR should map the associated attributes. 
   ```rb
