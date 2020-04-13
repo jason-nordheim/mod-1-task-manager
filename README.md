@@ -18,3 +18,15 @@ Jason Nordheim & Jeremy Hart
 3. Has a CLI that allows users to interact with your database as defined by your user stories (minimum of four; one for each CRUD action).
 4. Uses good OO design patterns. You should have separate models for your runner and CLI interface.
 
+
+### Project Specific Requirements 
+
+#### Gems 
+All gems should be installed using `bundle` 
+
+1. `activerecord`
+2. `sinatra-activerecord`
+3. `rake`
+4. `sqlite3` 
+5. `require_all`
+6. `pry`
