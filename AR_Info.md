@@ -48,6 +48,15 @@ Data from this application will be stored in a local database called `tskmgr.db`
 # Tree 
 ```
 
+## Database configuration 
+
+### Steps 
+How do you add a table, column, (or anything else) to a database. 
+1. Write a migration 
+2. migrate
+
+
+
 ## Instantiation 
 
 1. Inherit from `ApplicationRecord` class: 
