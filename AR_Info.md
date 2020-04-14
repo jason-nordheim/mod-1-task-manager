@@ -33,6 +33,8 @@ Database Tables - Should be plural, with underscores seperating words.
 ### Additional Out-of-the-box Goodies 
 There are a variety of optional column names that will add additional features to AR instances: 
 
+| attribute | description| 
+|---|---| 
 | `created_at` | automatically gets set to the current date and time when the record was first created | 
 | `updated_at` | automatically gets set to the current data and time whenever the record is created or updated. | 
 | `lock_version` | adds optimistic locking to a model | 
