@@ -18,7 +18,7 @@ This is the root loop for the application.
 4. See appropriate user story: 
   * `[1] Create new user` - [A2]
   * `[2] Create new task` - [A3]
-  * `[3] Create new project`  
+  * `[3] Create new project` - [A4] 
 
 ## A2 - Prompt User Creation 
 ### Steps 
@@ -72,14 +72,19 @@ CLI prompt to input a new task
     * that the character input by the user is `Y` (yes) or `N` (no), ignoring case. 
 8. If User selects `Y` - Display Projects (See Story: `Display Projects`), otherwise, 
 ### Pre-requisites:
-1. That user selected `[2] Create new task` or (`2`) in the main-menu (See story `A2`)
+1. That user selected `[2] Create new task` or (`2`) in the main-menu (See story `A3`)
 
 
 
 ## B1 - Display Projects 
 User story for displaying projects via the CLI. 
 ### Steps
-### Prerequisites 
+1. Pull list of projects from the `Projects` table
+2. Prompts user to select a project to add the task to it.
+3. User `gets.chomp` for project names
+* Validates
+  * Input must be a valid name from the table
+4. Adds task to selected `Project` object
 
 ### Prerequisites
 1. From main-menu, user selected option `[2] Create new task` (Option 2): 
@@ -87,18 +92,30 @@ User story for displaying projects via the CLI.
 1. `require 'date'` 
 
 
-## A3 Prompt Project Creation 
+## A4 Prompt Project Creation 
+CLI prompt to create a project
+
+### Steps 
+1. Prompts User to give a title to the Project:  `Give the project a title: `
+2. Uses gets.chomp to retrieve string place by user
+* Validates
+  * Project name does not exist in `Project` table
+3. `Project` object is saved to table
+
+### Pre-requisites:
+1. That user selected `[3] Create new project` or (`3`) in the main-menu (See story `A4`)
 
 
 
+## A5 List of Tasks
+CLI prompt to show all of the created tasks
 
+### Steps
+1. User is shown the list of tasks from the `Tasks` table
+2. Prompts user to return to the main menu
 
-
-
-
-
-
-
+### Prerequisites
+1. That user selected `[4] View all tasks` or (`4`) in the main menu
 
 
 
