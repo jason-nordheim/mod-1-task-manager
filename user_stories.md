@@ -1,5 +1,6 @@
 # User Stories 
 
+
 ## A1 - Main Menu (main loop)
 This is the root loop for the application. 
 ## Steps 
@@ -27,11 +28,15 @@ This is the root loop for the application.
   * `[6] View list of users` 
   * `[7] View a list of projects` - [B1]
 
+
+
+
+
 ## A2 - Prompt User Creation 
 ### Steps 
 1. Display prompt in CLI as follows: `Please enter a first name:`
 2. Uses `gets.chomp` to read text from CLI. 
-  * Validates: 
+  * Validates:
     * Is longer than 3 characters 
     * Does not contain spaces 
 3. Displays prompt for last name: `Please enter last name:` 
@@ -105,6 +110,40 @@ User story for displaying projects via the CLI.
 1. From main-menu, user selected option `[2] Create new task` (Option 2): 
 ### Required Modules
 1. `require 'date'` 
+
+
+
+
+## B2 - Display All Tasks  
+User story for displaying **all** tasks via the CLI. 
+### Steps
+1. Grabs all the Tasks from the Database using `Tasks.all` 
+2. If no tasks are found, displays `No tasks exist`
+3. If tasks exist, maps the task name and assignee of tasks to a string in the following format: `"[#{index}] #{task_name}: #{task.assignee}"`
+4. Loops through the returned string array, writing the name of each project to the console. 
+5. Displays prompt: `"Enter number (e.g. '1') or task name to see more details about the task:"`
+6. Uses `gets.chomp` to read user input: 
+  * Validates:
+    * that the entered string can either: 
+      1. Be parsed into a number, and is a number between 1 and `Projects.all.count` 
+      2. Matches (case-insensitive) one of the project names displayed
+### Prerequisites 
+
+
+
+
+## C1 - Display Task Details 
+User story for dislpaying a task information 
+
+
+
+
+
+### Prerequisites
+1. From main-menu, user selected option `[2] Create new task` (Option 2): 
+### Required Modules
+1. `require 'date'` 
+
 
 
 ## A3 Prompt Project Creation 
