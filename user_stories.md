@@ -16,10 +16,9 @@ This is the root loop for the application.
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
 3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
 4. See appropriate user story: 
-  * `[1] Create new user` - A2 
-  * `[2] Create new task` 
+  * `[1] Create new user` - [A2]
+  * `[2] Create new task` - [A3]
   * `[3] Create new project`  
-
 
 ## A2 - Prompt User Creation 
 ### Steps 
@@ -41,10 +40,12 @@ This is the root loop for the application.
     * Email string contains `.` character
 6. User object is created, record is saved to database. 
 ### Pre-requisites:
-1. That user selected "User Creation" or (1) in the main-menu (See story 'A1')
+1. That user selected `[1] Create new user` or (`1`) in the main-menu (See story `A2`)
 
 
-## Prompt Task Creation 
+
+
+## A3 - Prompt Task Creation 
 CLI prompt to input a new task 
 ### Steps 
 1. Prompts User to Enter Task: `Please enter task name: ` 
@@ -70,8 +71,8 @@ CLI prompt to input a new task
     * that the user-input is a single-character 
     * that the character input by the user is `Y` (yes) or `N` (no), ignoring case. 
 8. If User selects `Y` - Display Projects (See Story: `Display Projects`), otherwise, 
-### Prerequisites
-1. User selected `[2] Create new task` from main-menu (See )
+### Pre-requisites:
+1. That user selected `[2] Create new task` or (`2`) in the main-menu (See story `A2`)
 
 
 
