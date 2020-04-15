@@ -10,8 +10,9 @@ This is the root loop for the application.
   [2] Create new task 
   [3] Create new project  
   [4] View all tasks 
-  [5] View tasks by Project
+  [5] View tasks by project
   [6] View list of users 
+  [7] View a list of projects 
 
   ** At any time you can type: "exit" to exit the application or "back" to go back to the previous menu ** 
   ```
@@ -21,6 +22,10 @@ This is the root loop for the application.
   * `[1] Create new user` - [A2]
   * `[2] Create new task` - [A3]
   * `[3] Create new project`  
+  * `[4] View all tasks` 
+  * `[5] View tasks by project`
+  * `[6] View list of users` 
+  * `[7] View a list of projects` - [B1]
 
 ## A2 - Prompt User Creation 
 ### Steps 
@@ -85,16 +90,15 @@ CLI prompt to input a new task
 User story for displaying projects via the CLI. 
 ### Steps
 1. Grabs all the Projects from the Database using `Projects.all` 
-2. Maps the proejcts name and number of tasks to a string in the following format: `"[#{index}] #{project_name}: #{tasks.count}"`
-3. Loops through the returned string array, writing the name of each project to the console. 
-4. Displays prompt: `"Enter number (e.g. '1') or project name to see more details about the project:"`
-5. Uses `gets.chomp` to read user input: 
+2. If no projects are found, displays `No projects exist`
+3. If projects exist, maps the proejcts name and number of tasks to a string in the following format: `"[#{index}] #{project_name}: #{tasks.count}"`
+4. Loops through the returned string array, writing the name of each project to the console. 
+5. Displays prompt: `"Enter number (e.g. '1') or project name to see more details about the project:"`
+6. Uses `gets.chomp` to read user input: 
   * Validates:
     * that the entered string can either: 
       1. Be parsed into a number, and is a number between 1 and `Projects.all.count` 
       2. Matches (case-insensitive) one of the project names displayed
-
-
 ### Prerequisites 
 
 ### Prerequisites
