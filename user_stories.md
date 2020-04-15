@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> ccbbfad752a95acb8dbed831c2ecd7b128bf1a45
 # User Stories 
 
 ## User creation 
-1. User enters `first_name`(string), `last_name`(string), `phone`(string), `email` (string)
-2. User is saved to database. 
+The process for adding a new user. 
 ### Steps 
+1. User enters `first_name`(string), `last_name`(string), `phone`(string), `email` (string)
+2. User is saved to database
 ### Prerequisites 
 
 
@@ -40,7 +36,6 @@
 ## Project creation
 
 1. User creates `Project`(`name`), and saves it to database
-
 2. User chooses to add `tasks` or use defaults for `Project`
 
 ## Project tasks
