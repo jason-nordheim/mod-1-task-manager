@@ -12,6 +12,8 @@ This is the root loop for the application.
   [4] View all tasks 
   [5] View tasks by Project
   [6] View list of users 
+
+  ** At any time you can type: "exit" to exit the application or "back" to go back to the previous menu ** 
   ```
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
 3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
