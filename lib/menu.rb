@@ -31,9 +31,9 @@ class Menu
     when MAIN_MENU_CHOICES[2] then # Create new project  
       create_new_project
     when MAIN_MENU_CHOICES[3] then # View all tasks
-      view_all_tasks 
+       view_all_users
     when MAIN_MENU_CHOICES[4] then # View all users
-      view_all_users 
+      view_all_tasks 
     when MAIN_MENU_CHOICES[5] then # View all projects 
       view_all_projects 
     when MAIN_MENU_CHOICES[6] then # View tasks by user
@@ -92,19 +92,30 @@ class Menu
   end 
 
   def create_new_project
+    p_name = get_project_name() 
+    Project.create(name: p_name)
+  end 
+
+  def get_project_name
+    project_name = prompt.ask("Please enter a name for your project: ") do |q| 
+      # todo: q.validate()
+      q.required(true) 
+    end 
   end 
 
   def create_new_task
     t_name = get_task_name() 
     t_description = get_task_description()
     t_due_date = get_due_date()
-    t_user = get_user_assignment()
+    t_user = search_user()
+    t_project = find_project() 
     
-    # t_project = get_project_assignment() 
-    # main  
+    Task.create(name: t_name, description: t_description, due: t_due_date, user_id: t_user.id, project_id: t_project.id)
+
+    main  
   end 
 
-  def get_user_assignment
+  def search_user
     selected_user = nil 
     if prompt_optional("user to this task")
       loop do 
@@ -121,7 +132,11 @@ class Menu
     selected_user 
   end 
 
-  def get_project_assignment
+  def find_project 
+    search = prompt.ask("Please enter the project name") {|q| q.required(true) }
+    Project.find do |proj|
+      proj.name.match?("^*[#{search}]*$")
+    end 
   end 
 
   def get_due_date
@@ -158,22 +173,57 @@ class Menu
     name 
   end 
 
-  def menu_view_all_tasks
+  def view_all_tasks
+    display_tasks(Task.all) 
+    main() 
   end 
 
-  def menu_view_all_users
+  def display_tasks(tasks)
+    tasks_str = tasks.map{ |t| "| #{t.id}\t| #{t.name}\t| #{t.due} \t|" }
+    puts "| id\t| name \t\t| due\t\t\t\t|"
+    puts "---------------------------------------------------------"
+    tasks_str.each {|t| puts t }
+    puts "---------------------------------------------------------"
   end 
 
-  def menu_view_all_projects
+  def view_all_users
+    display_users(User.all)
+    main() 
+  end
+  
+  def display_users user_list 
+    # | id | first | last | email | phone | 
+    str_user = user_list.map {|u| "| #{u.id} \t| #{to_display(u.firstname,10)}\t| #{to_display(u.lastname,15)}\t| #{to_display(u.email,20)}\t| #{u.phone}\t|"}
+    header = "| id \t| first    \t| last            \t| email               \t| phone     \t|"
+    puts header  
+    puts "-----------------------------------------------------------------------------------------"
+    str_user.each { |u| puts u}
+    puts "-----------------------------------------------------------------------------------------"
   end 
 
-  def menu_view_tasks_by_user 
+  def to_display(input_string, chars_to_display)
+    if input_string.chars.count < chars_to_display
+      return input_string.ljust(chars_to_display, " ")
+    else 
+      return input_string.slice(0, chars_to_display)
+    end 
+  end 
+
+  def view_tasks_by_project
+  end 
+
+  def view_all_projects
+  end 
+
+  def view_tasks_by_user 
+    user = search_user() 
+    tasks = Task.select {|t| t.user_id == user.id }
+    display_tasks(tasks)
   end 
 
   def view_tasks_by_user user 
     array_tasks = Tasks.all.select { | task | task.user_id == user.user_id } 
   end 
 
-  def menu_view_tasks_by_project
-  end 
+
 end 
