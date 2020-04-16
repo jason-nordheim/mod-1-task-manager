@@ -178,6 +178,66 @@ class Menu
     main() 
   end 
 
+  def view_all_users
+    display_users(User.all)
+    main() 
+  end
+
+  def view_tasks_by_user 
+    user = search_user() 
+    tasks = Task.select {|t| t.user_id == user.id }
+    display_tasks(tasks)
+    main() 
+  end 
+
+  def view_tasks_by_user user 
+    array_tasks = Tasks.all.select { | task | task.user_id == user.user_id } 
+    display_tasks(array_tasks)
+    main() 
+  end 
+
+
+  def standardize(input_string, chars_to_display)
+    if input_string.chars.count < chars_to_display
+      return input_string.ljust(chars_to_display, " ")
+    else 
+      return input_string.slice(0, chars_to_display)
+    end 
+  end 
+  
+
+  def view_tasks_by_project
+    # prompt for project 
+    proj = find_project()
+    # display all tasks associated with project 
+    related_tasks = Task.select {|t| t.project_id == proj.id} 
+    display_tasks(related_tasks)
+    main() 
+  end 
+
+  def view_all_projects
+    view_projects(Project.all)
+    main() 
+  end 
+
+  def display_users user_list 
+    # | id | first | last | email | phone | 
+    str_user = user_list.map {|u| "| #{u.id} \t| #{standardize(u.firstname,10)}\t| #{standardize(u.lastname,15)}\t| #{standardize(u.email,20)}\t| #{u.phone}\t|"}
+    header = "| id \t| first    \t| last            \t| email               \t| phone     \t|"
+    puts header  
+    puts "-----------------------------------------------------------------------------------------"
+    str_user.each { |u| puts u}
+    puts "-----------------------------------------------------------------------------------------"
+  end 
+
+  def display_projects(projects)
+    str_projects = projects.map { |pr| "| #{prid}\t| #{pr.name}\t| #{Task.select {|t| t.project_id == pr.id}.count }\t|" }
+    header = "| id \t| name \t| No. Tasks \t|"
+    puts header 
+    puts "---------------------------------------------------------"
+    str_projects.each{ |pr| puts pr }
+  end 
+
   def display_tasks(tasks)
     tasks_str = tasks.map{ |t| "| #{t.id}\t| #{t.name}\t| #{t.due} \t|" }
     puts "| id\t| name \t\t| due\t\t\t\t|"
@@ -186,44 +246,6 @@ class Menu
     puts "---------------------------------------------------------"
   end 
 
-  def view_all_users
-    display_users(User.all)
-    main() 
-  end
-  
-  def display_users user_list 
-    # | id | first | last | email | phone | 
-    str_user = user_list.map {|u| "| #{u.id} \t| #{to_display(u.firstname,10)}\t| #{to_display(u.lastname,15)}\t| #{to_display(u.email,20)}\t| #{u.phone}\t|"}
-    header = "| id \t| first    \t| last            \t| email               \t| phone     \t|"
-    puts header  
-    puts "-----------------------------------------------------------------------------------------"
-    str_user.each { |u| puts u}
-    puts "-----------------------------------------------------------------------------------------"
-  end 
-
-  def to_display(input_string, chars_to_display)
-    if input_string.chars.count < chars_to_display
-      return input_string.ljust(chars_to_display, " ")
-    else 
-      return input_string.slice(0, chars_to_display)
-    end 
-  end 
-
-  def view_tasks_by_project
-  end 
-
-  def view_all_projects
-  end 
-
-  def view_tasks_by_user 
-    user = search_user() 
-    tasks = Task.select {|t| t.user_id == user.id }
-    display_tasks(tasks)
-  end 
-
-  def view_tasks_by_user user 
-    array_tasks = Tasks.all.select { | task | task.user_id == user.user_id } 
-  end 
 
 
 end 
