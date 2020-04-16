@@ -32,6 +32,8 @@ This is the root loop for the application.
   * `[7] View tasks by project` - [C1] 
   * `[8] View tasks by user` - [C2] 
 
+
+
 ## A2 - Prompt User Creation (new)
 ### Steps 
 1. Display prompt in CLI as follows: `Please enter a first name:`
@@ -128,6 +130,8 @@ User story for displaying projects via the CLI.
 ### Required Modules
 1. `require 'date'` 
 
+
+
 ## B2 - View All Tasks  
 User story for displaying **all** tasks via the CLI. 
 ### Steps
@@ -163,25 +167,18 @@ User story for displaying **all** users via the CLI.
 
 
 
-
-### Prerequisites
-1. From main-menu, user selected option `[2] Create new task` (Option 2): 
-### Required Modules
-1. `require 'date'` 
-
-
 ## A3 - Prompt Project Creation 
+
+
 
 ## A4 Prompt Project Creation 
 CLI prompt to create a project
-
 ### Steps 
 1. Prompts User to give a title to the Project:  `Give the project a title: `
 2. Uses gets.chomp to retrieve string place by user
 * Validates
   * Project name does not exist in `Project` table
 3. `Project` object is saved to table
-
 ### Pre-requisites:
 1. That user selected `[3] Create new project` or (`3`) in the main-menu (See story `A4`)
 
@@ -189,17 +186,14 @@ CLI prompt to create a project
 
 ## B2 - View of Tasks
 CLI prompt to show all of the created tasks
-
 ### Steps
 1. User is shown the list of tasks from the `Tasks` table
 2. Prompts user to return to the main menu
-
 ### Prerequisites
 1. That user selected `[4] View all tasks` or (`4`) in the main menu
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
 3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
 4. See appropriate user story (1-3)
-
 
 
 ## C1 - View Tasks by Project 
