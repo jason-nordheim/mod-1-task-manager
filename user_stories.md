@@ -1,8 +1,9 @@
 # User Stories 
 
+
 ## A1 - Main Menu (main loop)
 This is the root loop for the application. 
-## Steps 
+### Steps 
 1. Display options as follows: 
   ```
   Please select an option (1-3): 
@@ -10,21 +11,29 @@ This is the root loop for the application.
   [2] Create new task 
   [3] Create new project  
   [4] View all tasks 
-  [5] View tasks by Project
+  [5] View tasks by project
   [6] View list of users 
+  [7] View a list of projects 
+
+  ** At any time you can type: "exit" to exit the application or "back" to go back to the previous menu ** 
   ```
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
 3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
 4. See appropriate user story: 
-  * `[1] Create new user` - [A2]
-  * `[2] Create new task` - [A3]
-  * `[3] Create new project` - [A4] 
+  * `[1] Create new user` - [A2] (DONE)
+  * `[2] Create new task` - [A3] (DONE)
+  * `[3] Create new project` - [A4] (DONE)
+  * `[4] View all tasks` - [B2] (JH-DONE)
+  * `[5] View all projects` - [B1] (JN-DONE) 
+  * `[6] View all users` - [B3] (JN-DONE)
+  * `[7] View tasks by project` - [C2] (JN)
+  * `[8] View tasks by user` - [C3] (JN)
 
-## A2 - Prompt User Creation 
+## A2 - Prompt User Creation (new)
 ### Steps 
 1. Display prompt in CLI as follows: `Please enter a first name:`
 2. Uses `gets.chomp` to read text from CLI. 
-  * Validates: 
+  * Validates:
     * Is longer than 3 characters 
     * Does not contain spaces 
 3. Displays prompt for last name: `Please enter last name:` 
@@ -45,7 +54,7 @@ This is the root loop for the application.
 
 
 
-## A3 - Prompt Task Creation 
+## A3 - Prompt Task Creation (new)
 CLI prompt to input a new task 
 ### Steps 
 1. Prompts User to Enter Task: `Please enter task name: ` 
@@ -76,9 +85,34 @@ CLI prompt to input a new task
 
 
 
-## B1 - Display Projects 
+
+## A4 - Prompt Project Creation (new)
+CLI prompt for creating a new project. 
+### Steps 
+1. Prompts user to enter new project: `Please give the project a title: `
+2. Uses `gets.chomp` to retrieve input from the user as a string. 
+  * Validates 
+    * Project name does not exist in table `Project`; if exists; displays `"Project name taken, please enter a different project name"`, and returns to begining of `A4` prompt. 
+3. New `Project` object and saved to the database. 
+### Pre-Requisites 
+1. That user selected `[3] Create new project` or (`3`) in the main-menu (See story `A4`)
+
+
+
+## B1 - View All Projects 
 User story for displaying projects via the CLI. 
 ### Steps
+1. Grabs all the Projects from the Database using `Projects.all` 
+2. If no projects are found, displays `No projects exist`
+3. If projects exist, maps the proejcts name and number of tasks to a string in the following format: `"[#{index}] #{project_name}: #{tasks.count}"`
+4. Loops through the returned string array, writing the name of each project to the console. 
+5. Displays prompt: `"Enter number (e.g. '1') or project name to see more details about the project:"`
+6. Uses `gets.chomp` to read user input: 
+  * Validates:
+    * that the entered string can either: 
+      1. Be parsed into a number, and is a number between 1 and `Projects.all.count` 
+      2. Matches (case-insensitive) one of the project names displayed
+### Prerequisites 
 1. Pull list of projects from the `Projects` table
 2. Prompts user to select a project to add the task to it.
 3. User `gets.chomp` for project names
@@ -91,6 +125,53 @@ User story for displaying projects via the CLI.
 ### Required Modules
 1. `require 'date'` 
 
+## B2 - View All Tasks  
+User story for displaying **all** tasks via the CLI. 
+### Steps
+1. Grabs all the Tasks from the Database using `Task.all` 
+2. If no tasks are found, displays `No tasks exist`
+3. If tasks exist, maps the task name and assignee of tasks to a string in the following format: `"[#{index}] #{task_name}: #{task.assignee}"`
+4. Loops through the returned string array, writing the name of each project to the console. 
+5. Displays prompt: `"Enter number (e.g. '1') or task name to see more details about the task:"`
+6. Uses `gets.chomp` to read user input: 
+  * Validates:
+    * that the entered string can either: 
+      1. Be parsed into a number, and is a number between 1 and `Projects.all.count` 
+      2. Matches (case-insensitive) one of the project names displayed
+### Prerequisites 
+1. User selected `[4] View all tasks` in main-menu (option: `4`)
+
+
+
+## B4 View all Users
+User story for displaying **all** users via the CLI. 
+### Steps
+1. Grabs all the Tasks from the Database using `User.all` 
+2. If only 1 user is found, displays `No users exist`
+3. If `>1` tasks exist, maps the task name and assignee of tasks to a string in the following format: `"[#{index}] #{user_full_name}"`. 
+4. Loops through the returned string array, writing the name of each project to the console. 
+5. Displays prompt: `"Enter number (e.g. '1') to see more details about the user:"`
+6. Uses `gets.chomp` to read user input: 
+  * Validates:
+    1. Be parsed into a number, and is a number between 1 and `Task.all.count` 
+### Prerequisites 
+1. User selected `[6] View all users` in main-menu (option: `6`)
+
+
+## C1 - Display Task Details 
+User story for dislpaying a task information 
+
+
+
+
+
+### Prerequisites
+1. From main-menu, user selected option `[2] Create new task` (Option 2): 
+### Required Modules
+1. `require 'date'` 
+
+
+## A3 - Prompt Project Creation 
 
 ## A4 Prompt Project Creation 
 CLI prompt to create a project
@@ -148,6 +229,7 @@ CLI prompt to show all of the created tasks
 
 
 
+# HIDE 
 ## User creation 
 The process for adding a new user. 
 ### Steps 
