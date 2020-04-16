@@ -1,6 +1,6 @@
 # User Stories 
 
-## Main Menu (main loop)
+## A1 - Main Menu (main loop)
 This is the root loop for the application. 
 ## Steps 
 1. Display options as follows: 
@@ -9,7 +9,113 @@ This is the root loop for the application.
   [1] Create new user 
   [2] Create new task 
   [3] Create new project  
+  [4] View all tasks 
+  [5] View tasks by Project
+  [6] View list of users 
   ```
+2. Uses `gets.chomp` to read in user-input and parse to integer. 
+3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
+4. See appropriate user story: 
+  * `[1] Create new user` - [A2]
+  * `[2] Create new task` - [A3]
+  * `[3] Create new project` - [A4] 
+
+## A2 - Prompt User Creation 
+### Steps 
+1. Display prompt in CLI as follows: `Please enter a first name:`
+2. Uses `gets.chomp` to read text from CLI. 
+  * Validates: 
+    * Is longer than 3 characters 
+    * Does not contain spaces 
+3. Displays prompt for last name: `Please enter last name:` 
+4. Uses `gets.chomp` to read text from CLI. 
+  * Validates: 
+    * Is longer than 3 characters 
+    * Does not contain spaces 
+5. Displays prompt in CLI for user email: `Please enter an email for #{first_name} #{last_name} (optional):` 
+  * If nothing is entered, that's ok - proceed to next prompt 
+  * If text is entered, validates that: 
+    * Email string is longer (`str.length`) than 5 characters 
+    * Email string contains `@` character 
+    * Email string contains `.` character
+6. User object is created, record is saved to database. 
+### Pre-requisites:
+1. That user selected `[1] Create new user` or (`1`) in the main-menu (See story `A2`)
+
+
+
+
+## A3 - Prompt Task Creation 
+CLI prompt to input a new task 
+### Steps 
+1. Prompts User to Enter Task: `Please enter task name: ` 
+2. Uses `gets.chomp` to retrieve string placed by user 
+  * Validates: 
+    * Name does not already exist in `Tasks` table 
+3. Prompts User to enter task due date: `Please enter when this task is due [MM-DD-YYYY]:` 
+  * Validates
+    * Day - That characters with indicies (0...2) create valid integer, and is an integer has a value betweeen 1 and 12 (inclusive)
+    * Month - That characters with indicies (3,5) create a valid integer, and is an integer that has values between 1 and 31 (inclusive)
+    * Year - That characters with indicies (6,9) create a valid integer, and is an integer `<=` 2020 (must be a date from current date forward)
+    * That the `Day`, `Month` and `Year` creates a valid date object  
+4. Prompts user to see if they would like to add a `description` to the task: `Would you like to add a description (Y/N):` 
+5. Uses `gets.chomp` to read user-input. 
+  * Validates 
+    * that the user-input is a single-character 
+    * that the character input by the user is `Y` (yes) or `N` (no), ignoring case. 
+5. If user selected `Y` (yes), displays prompt: `Please enter description for task (#{task_name}) (hit "Return" when finished):` 
+  * No validation will be performed on the description. 
+6. Prompts the user to determine if new Task should be added to a project: `Would you like to add #{task_name} to a project (Y/N):` 
+7. Users `gets.chomp` to read in user-input. 
+  * Validates 
+    * that the user-input is a single-character 
+    * that the character input by the user is `Y` (yes) or `N` (no), ignoring case. 
+8. If User selects `Y` - Display Projects (See Story: `Display Projects`), otherwise, 
+### Pre-requisites:
+1. That user selected `[2] Create new task` or (`2`) in the main-menu (See story `A3`)
+
+
+
+## B1 - Display Projects 
+User story for displaying projects via the CLI. 
+### Steps
+1. Pull list of projects from the `Projects` table
+2. Prompts user to select a project to add the task to it.
+3. User `gets.chomp` for project names
+* Validates
+  * Input must be a valid name from the table
+4. Adds task to selected `Project` object
+
+### Prerequisites
+1. From main-menu, user selected option `[2] Create new task` (Option 2): 
+### Required Modules
+1. `require 'date'` 
+
+
+## A4 Prompt Project Creation 
+CLI prompt to create a project
+
+### Steps 
+1. Prompts User to give a title to the Project:  `Give the project a title: `
+2. Uses gets.chomp to retrieve string place by user
+* Validates
+  * Project name does not exist in `Project` table
+3. `Project` object is saved to table
+
+### Pre-requisites:
+1. That user selected `[3] Create new project` or (`3`) in the main-menu (See story `A4`)
+
+
+
+## A5 List of Tasks
+CLI prompt to show all of the created tasks
+
+### Steps
+1. User is shown the list of tasks from the `Tasks` table
+2. Prompts user to return to the main menu
+
+### Prerequisites
+1. That user selected `[4] View all tasks` or (`4`) in the main menu
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
 3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
 4. See appropriate user story (1-3)
@@ -49,9 +155,6 @@ The process for adding a new user.
 2. User is saved to database
 ### Prerequisites 
 None 
-
-
-
 ## Task Creation 
 How tasks are created: 
 ### Task Creation - A 
