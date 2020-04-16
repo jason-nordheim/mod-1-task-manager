@@ -7,6 +7,8 @@ class CreateTasksTable < ActiveRecord::Migration[6.0]
 
       # created_at, updated_at 
       t.timestamps  
+      t.references :project # <=== a task belongs to one project 
+      t.references :user # <=== a task belongs to one user
     end
   end 
 end
