@@ -23,14 +23,14 @@ This is the root loop for the application.
   2. should prompt to create new task
   3. prompt to create new project. 
 4. See appropriate user story: 
-  * `[1] Create new user` - [A2] (DONE)
-  * `[2] Create new task` - [A3] (DONE)
-  * `[3] Create new project` - [A4] (DONE)
-  * `[4] View all tasks` - [B2] (JH-DONE)
-  * `[5] View all projects` - [B1] (JN-DONE) 
-  * `[6] View all users` - [B3] (JN-DONE)
-  * `[7] View tasks by project` - [C2] (JN)
-  * `[8] View tasks by user` - [C3] (JN)
+  * `[1] Create new user` - [A2] 
+  * `[2] Create new task` - [A3] 
+  * `[3] Create new project` - [A4] 
+  * `[4] View all tasks` - [B2] 
+  * `[5] View all projects` - [B1] 
+  * `[6] View all users` - [B3] 
+  * `[7] View tasks by project` - [C1] 
+  * `[8] View tasks by user` - [C2] 
 
 ## A2 - Prompt User Creation (new)
 ### Steps 
