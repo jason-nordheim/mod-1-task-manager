@@ -14,11 +14,14 @@ This is the root loop for the application.
   [5] View tasks by project
   [6] View list of users 
   [7] View a list of projects 
-
+  [8] View tasks by user
   ** At any time you can type: "exit" to exit the application or "back" to go back to the previous menu ** 
   ```
 2. Uses `gets.chomp` to read in user-input and parse to integer. 
-3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
+3. Via switch statement, evaluates if 
+  1. should prompt to create new user 
+  2. should prompt to create new task
+  3. prompt to create new project. 
 4. See appropriate user story: 
   * `[1] Create new user` - [A2] (DONE)
   * `[2] Create new task` - [A3] (DONE)
