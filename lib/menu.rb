@@ -107,7 +107,7 @@ class Menu
     t_name = get_task_name() 
     t_description = get_task_description()
     t_due_date = get_due_date()
-    t_user = search_user()
+    t_user = search_user?()
     t_project = find_project() 
     
     Task.create(name: t_name, description: t_description, due: t_due_date, user_id: t_user.id, project_id: t_project.id)
@@ -115,18 +115,22 @@ class Menu
     main  
   end 
 
-  def search_user
-    selected_user = nil 
+  def search_user? 
     if prompt_optional("user to this task")
-      loop do 
-        first_name = get_name("first")
-        last_name = get_name("last")
-        selected_user = User.find { |user| user.firstname == first_name && user.lastname == last_name } 
-        if selected_user == nil 
-          puts 'User not found'
-        else
-          return selected_user 
-        end 
+      return search_user() 
+    end 
+  end 
+
+  def search_user 
+    selected_user = nil 
+    loop do 
+      first_name = get_name("first")
+      last_name = get_name("last")
+      selected_user = User.find { |user| user.firstname == first_name && user.lastname == last_name } 
+      if selected_user == nil 
+        puts 'User not found'
+      else
+        return selected_user 
       end 
     end 
     selected_user 
@@ -238,7 +242,5 @@ class Menu
     tasks_str.each {|t| puts t }
     puts "---------------------------------------------------------"
   end 
-
-
 
 end 
