@@ -146,7 +146,7 @@ User story for displaying **all** tasks via the CLI.
 
 
 
-## B4 View all Users
+## B3 View all Users
 User story for displaying **all** users via the CLI. 
 ### Steps
 1. Grabs all the Tasks from the Database using `User.all` 
@@ -159,10 +159,6 @@ User story for displaying **all** users via the CLI.
     1. Be parsed into a number, and is a number between 1 and `Task.all.count` 
 ### Prerequisites 
 1. User selected `[6] View all users` in main-menu (option: `6`)
-
-
-## C1 - Display Task Details 
-User story for dislpaying a task information 
 
 
 
@@ -191,7 +187,7 @@ CLI prompt to create a project
 
 
 
-## A5 List of Tasks
+## B2 - View of Tasks
 CLI prompt to show all of the created tasks
 
 ### Steps
@@ -205,85 +201,10 @@ CLI prompt to show all of the created tasks
 4. See appropriate user story (1-3)
 
 
-## Prompt User Creation 
-### Steps 
-1. Display prompt in CLI as follows: `Please enter a first name:`
-2. Uses `gets.chomp` to read text from CLI. 
-  * Validates: 
-    * Is longer than 3 characters 
-    * Does not contain spaces 
-3. Displays prompt for last name: `Please enter last name:` 
-4. Uses `gets.chomp` to read text from CLI. 
-  * Validates: 
-    * Is longer than 3 characters 
-    * Does not contain spaces 
-5. Displays prompt in CLI for user email: `Please enter an email for #{first_name} #{last_name} (optional):` 
-  * If nothing is entered, that's ok - proceed to next prompt 
-  * If text is entered, validates that: 
-    * Email string is longer (`str.length`) than 5 characters 
-    * Email string contains `@` character 
-    * Email string contains `.` character
-### Pre-requisites:
-1. That user selected "User Creation" or (1) in the main-menu 
+
+## C1 - View Tasks by Project 
+User story for dislpaying a task information 
 
 
-## Prompt Task Creation 
-## Prompt Project Creation 
-
-
-
-# HIDE 
-## User creation 
-The process for adding a new user. 
-### Steps 
-1. User enters `first_name`(string), `last_name`(string), `phone`(string), `email` (string)
-2. User is saved to database
-### Prerequisites 
-None 
-## Task Creation 
-How tasks are created: 
-### Task Creation - A 
-1. User creates `Task`, by default, goes into default project `uncategorized` 
-#### Steps 
-1. User enters `email`, database checks to see if it exists
-2. If `email` is confirmed, `user` is pulled; else, engage the creation prompt
-#### Prerequisites 
-
-### Task Creation - B 
-1. User creates a `Task` and assigns to project `CoolBeans` 
-#### Steps 
-1. User creates `Task`, and adds task to project 
-#### Pre-requisites 
-1. The tasks that the project is being added to must already exist 
-
-
-
-
-
-## Project default tasks
-1. During `Task` creation, option to make task `default` (used on all created `Projects`)
-
-## User tasks
-1. `Task` on creation have status `Not Started`
-2. `Task` when assigned to `User` will have status `In Progress`
-3. User will confirm task completion, giving status `Task Complete`
-
-
-## Project creation
-
-1. User creates `Project`(`name`), and saves it to database
-2. User chooses to add `tasks` or use defaults for `Project`
-
-## Project tasks
-
-### Method 1: No tasks added
-
-1. User pulls tasks from table, individually adding them to the project
-
-### Method 2: 
-
-1. While creating the project, select tasks as `default` (adds default tasks to project)
-
-## Project completion
-1. When all `Tasks` have status `Task Complete`, the User who created `Project` will confirm completion
-2. If completed, `Project` will be removed; else, User will determine which task is incomplete, and reset it to `In Progress`
+## C2 - View Tasks by User 
+User story for displaying all the tasks belonging to a specified user. 
