@@ -9,17 +9,33 @@ class TaskManager
     "View list of users",
     "View a list of projects", 
     "View tasks by user"] 
-    
-  def initialize
-  end
 
   def start
     display_main_menu 
   end 
 
   def display_main_menu 
-    prompt = TTY::Prmpt.new 
+    prompt = TTY::Prompt.new 
     response = prompt.select("Please select an option (1-8): ", MAIN_MENU_CHOICES) 
 
   end
 end
+
+
+tm = TaskManager.new 
+tm.start 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
