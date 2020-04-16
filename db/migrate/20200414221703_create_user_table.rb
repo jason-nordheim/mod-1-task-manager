@@ -5,9 +5,8 @@ class CreateUserTable < ActiveRecord::Migration[6.0]
       t.string    :lastname    
       t.string    :email
       t.string    :phone 
-
       # created_at, updated_at 
-      t.timestamps  
+      t.timestamps 
     end
   end 
 end

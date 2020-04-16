@@ -116,16 +116,45 @@ CLI prompt to show all of the created tasks
 
 ### Prerequisites
 1. That user selected `[4] View all tasks` or (`4`) in the main menu
+2. Uses `gets.chomp` to read in user-input and parse to integer. 
+3. Via switch statement, evaluates if 1) should prompt to create new user, 2) should prompt to create new task, 3) prompt to create new project. 
+4. See appropriate user story (1-3)
+
+
+## Prompt User Creation 
+### Steps 
+1. Display prompt in CLI as follows: `Please enter a first name:`
+2. Uses `gets.chomp` to read text from CLI. 
+  * Validates: 
+    * Is longer than 3 characters 
+    * Does not contain spaces 
+3. Displays prompt for last name: `Please enter last name:` 
+4. Uses `gets.chomp` to read text from CLI. 
+  * Validates: 
+    * Is longer than 3 characters 
+    * Does not contain spaces 
+5. Displays prompt in CLI for user email: `Please enter an email for #{first_name} #{last_name} (optional):` 
+  * If nothing is entered, that's ok - proceed to next prompt 
+  * If text is entered, validates that: 
+    * Email string is longer (`str.length`) than 5 characters 
+    * Email string contains `@` character 
+    * Email string contains `.` character
+### Pre-requisites:
+1. That user selected "User Creation" or (1) in the main-menu 
+
+
+## Prompt Task Creation 
+## Prompt Project Creation 
 
 
 
-
-
-
-
-
-
-
+## User creation 
+The process for adding a new user. 
+### Steps 
+1. User enters `first_name`(string), `last_name`(string), `phone`(string), `email` (string)
+2. User is saved to database
+### Prerequisites 
+None 
 ## Task Creation 
 How tasks are created: 
 ### Task Creation - A 
