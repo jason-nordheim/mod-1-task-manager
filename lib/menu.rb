@@ -190,13 +190,6 @@ class Menu
     main() 
   end 
 
-  def view_tasks_by_user user 
-    array_tasks = Tasks.all.select { | task | task.user_id == user.user_id } 
-    display_tasks(array_tasks)
-    main() 
-  end 
-
-
   def standardize(input_string, chars_to_display)
     if input_string.chars.count < chars_to_display
       return input_string.ljust(chars_to_display, " ")
@@ -204,7 +197,7 @@ class Menu
       return input_string.slice(0, chars_to_display)
     end 
   end 
-  
+
 
   def view_tasks_by_project
     # prompt for project 
