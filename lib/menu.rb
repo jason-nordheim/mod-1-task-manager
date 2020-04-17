@@ -62,6 +62,14 @@ class Menu
     s_user = search_user() 
     User.delete(s_user.id)
     "User: '#{s_user.full_name}' deleted"
+
+    related_tasks = Task.select{ |t| t.user_id == s_user.id }
+    related_tasks_id = related_tasks.map{|t| t.id }
+    if related_task_ids != nil && related_task_ids.count > 0 
+      Task.delete(related_tasks) 
+      t_names = related_tasks.map {|x| x.name }
+      puts "#{related_task_ids.count} deleted (Task Names: #{t_names.join(", ")} "
+    end
   end 
 
   def remove_task   
@@ -85,9 +93,13 @@ class Menu
     else 
       Project.delete(search_p_result.id)
       # remove all tasks associated withe project 
-      related_task_ids = Task.select { |t| t.project_id == search_p_result.id }.map {|t| t.id }
-      Task.delete(related_task_ids)
-      puts "Project: '#{search_p_result.name}' deleted"
+      related_tasks = Task.select { |t| t.project_id == search_p_result.id }
+      related_task_ids = related_tasks.map {|t| t.id }
+      if related_task_ids != nil && related_task_ids.count > 0 
+        Task.delete(related_tasks) 
+        t_names = related_tasks.map {|x| x.name }
+        puts "#{related_task_ids.count} deleted (Task Names: #{t_names.join(", ")} "
+      end
     end 
   end 
 
