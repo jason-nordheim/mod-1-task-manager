@@ -14,7 +14,9 @@ class Menu
     "View all tasks", 
     "View all projects", 
     "View tasks by user",
-    "View tasks by project"
+    "View tasks by project", 
+    "Remove a task", 
+    "Remove a project" 
   ] 
 
   def prompt_optional field_name 
@@ -40,6 +42,10 @@ class Menu
       view_tasks_by_user 
     when MAIN_MENU_CHOICES[7] then # View tasks by project 
       view_tasks_by_project 
+    when MAIN_MENU_CHOICES[8] then # Update task 
+      remove_task 
+    when MAIN_MENU_CHOICES[9] then # Remove project
+      remove_project
     when DEFAULT_MENU_OPTIONS[0] then # EXIT 
       exit # end application 
     else 
@@ -47,6 +53,16 @@ class Menu
       menu_main # User selected 'BACK', or an invalid option. 
     end
   end
+
+  def remove_task   
+  end 
+  
+  def remove_project 
+    search_p = prompt.ask("What project would you like to remove? (Enter part or all of project name") {|q| q.required(true)}
+    search_p_result = Project.find {|p| p.name.match?()}
+    binding.pry 
+  end 
+
   def create_new_user
     first_name = get_name("first")
     last_name = get_name("last")
@@ -57,6 +73,9 @@ class Menu
     # return to main menu 
     main
   end 
+
+
+
   def get_phone
     if prompt_optional("phone number")
       phone = ""
@@ -215,7 +234,7 @@ class Menu
   end 
 
   def view_all_projects
-    view_projects(Project.all)
+    display_projects(Project.all)
     main() 
   end 
 
@@ -230,19 +249,20 @@ class Menu
   end 
 
   def display_projects(projects)
-    str_projects = projects.map { |pr| "| #{prid}\t| #{pr.name}\t| #{Task.select {|t| t.project_id == pr.id}.count }\t|" }
-    header = "| id \t| name \t| No. Tasks \t|"
+    str_projects = projects.map do |pr|
+       "| #{pr.id}\t| #{standardize(pr.name, 20)}\t| #{ standardize(Task.select {|t| t.project_id == pr.id}.count.to_s, 10)}\t|" 
+    end 
+    header = "| id \t| name                \t| No. Tasks \t|"
     puts header 
-    puts "---------------------------------------------------------"
+    puts "-------------------------------------------------"
     str_projects.each{ |pr| puts pr }
   end 
 
   def display_tasks(tasks)
-    tasks_str = tasks.map{ |t| "| #{t.id}\t| #{t.name}\t| #{t.due} \t|" }
+    tasks_str = tasks.mapcl{ |t| "| #{t.id}\t| #{t.name}\t| #{t.due} \t|" }
     puts "| id\t| name \t\t| due\t\t\t\t|"
     puts "---------------------------------------------------------"
     tasks_str.each {|t| puts t }
     puts "---------------------------------------------------------"
   end 
-
 end 
