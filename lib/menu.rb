@@ -195,7 +195,9 @@ class Menu
   end 
 
   def standardize(input_string, chars_to_display)
-    if input_string.chars.count < chars_to_display
+    if input_string == nil 
+      return "".ljust(chars_to_display, " ")
+    elsif input_string.chars.count < chars_to_display
       return input_string.ljust(chars_to_display, " ")
     else 
       return input_string.slice(0, chars_to_display)
@@ -218,9 +220,9 @@ class Menu
   end 
 
   def display_users user_list 
-    # | id | first | last | email | phone | 
-    str_user = user_list.map {|u| "| #{u.id} \t| #{standardize(u.firstname,10)}\t| #{standardize(u.lastname,15)}\t| #{standardize(u.email,20)}\t| #{u.phone}\t|"}
-    header = "| id \t| first    \t| last            \t| email               \t| phone     \t|"
+    # | id | first | last | email | phone     \t| 
+    str_user = user_list.map {|u| "| #{u.id} \t| #{standardize(u.firstname,10)}\t| #{standardize(u.lastname,15)}\t| #{standardize(u.email,20)}\t| #{standardize(u.phone,10)}\t|"}
+    header = "| id \t| first    \t| last            \t| email               \t| phone      \t|"
     puts header  
     puts "-----------------------------------------------------------------------------------------"
     str_user.each { |u| puts u}
