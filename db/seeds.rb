@@ -26,6 +26,8 @@ project_save_the_nation = Project.create(name: "Save the Nation")
 
 # General Tasks 
 task_wash_car = Task.create(name: "Wash the car", project_id: project_uncategorized.id, user_id: user_undefined.id)
+task_pickup_milk = Task.create(name: "Pickup milk from the store", project_id: project_uncategorized.id, user_id: user_undefined.id)
+task_make_bed = Task.create(name: "Make my bed", project_id: project_uncategorized.id, user_id: user_undefined.id)
 
 # Hilary Tasks 
 task_send_flyers_GA = Task.create(name: "Send Flyers out in Georgia", description: "Create and distribute flyers for the Georgia voting district", due: d + 30, user_id: user_hillary_clinton.id)
@@ -34,10 +36,12 @@ task_send_flyers_CA = Task.create(name: "Send Flyers out in California", descrip
 task_increase_tech_security = Task.create(name: "Hire better IT Peopel", description: "We do not need another email breach", due: d + 5, user_id: user_hillary_clinton.id)
 
 # Biden Tasks 
-task_launch_marketing_CO = Task.create(name: "Record marketing video for Colorado", due: Date.today + 90, user_id: user_joe_biden.id)
-task_launch_marketing_DC = Task.create(name: "Send Flyers out in Georgia", description: "Create and distribute flyers for the Georgia voting district", due: d + 100, user_id: user_joe_biden.id )
+task_launch_marketing_AB = Task.create(name: "Record marketing video for Alabama", due: Date.today + 90, user_id: user_joe_biden.id)
+task_launch_marketing_AL = Task.create(name: "Send Flyers out in Alaska", description: "Create and distribute flyers for the Alaska voting district", due: d + 100, user_id: user_joe_biden.id )
+task_launch_marketing_MA = Task.create(name: "record marketing video in Alaska", description: "Create marketing for the Alaskan voting district", due: d + 100, user_id: user_joe_biden.id )
 
-# Donal Tasks 
+
+# Donald Tasks 
 task_sun_tan = Task.create(name: "Get orange spray tan", due: Date.today + 100, project_id: project_become_orange.id )
 task_incease_mask_production = Task.create(name: "Work with manufacturer's to increase mask production", due: d + 5, project_id: project_save_the_nation.id, user_id: user_donald_trump.id )
 task_develop_vaccine = Task.create(name: "Develop vaccine", due: d + 5, project_id: project_save_the_nation.id, user_id: user_donald_trump.id )
