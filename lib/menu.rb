@@ -48,7 +48,7 @@ class Menu
     when MAIN_MENU_CHOICES[9] then # Remove project
       remove_task 
     when MAIN_MENU_CHOICES[10] then # Remove Project 
-      remove_project
+      remove_project 
     when DEFAULT_MENU_OPTIONS[0] then # EXIT 
       exit # end application 
     else 
@@ -65,14 +65,14 @@ class Menu
   end 
 
   def remove_task   
-    s_task = prompt.ask("What task would you like to remove? (Enter part or all of task name") {|q| q.required(true)}
-    s_task_obj = Task.find {|t| t.name.match?("^*(#{s_task})")}
+    s_task_str = prompt.ask("What task would you like to remove? (Enter part or all of task name") {|q| q.required(true)}
+    s_task_obj = Task.find {|t| t.name.match?("^*(#{s_task_str})")}
     if s_task_obj == nil 
       puts "No task matched search critirea. Please try again"
       remove_task
     else 
-      Task.delete(s_task.id)
-      Puts "Task: '#{s_task.name}' deleted"
+      Task.delete(s_task_obj.id)
+      puts "Task: '#{s_task_obj.name}' deleted"
     end 
   end 
   
@@ -84,7 +84,10 @@ class Menu
       remove_project
     else 
       Project.delete(search_p_result.id)
-      Puts "Project: '#{search_p_result.name}' deleted"
+      # remove all tasks associated withe project 
+      related_task_ids = Task.select { |t| t.project_id == search_p_result.id }.map {|t| t.id }
+      Task.delete(related_task_ids)
+      puts "Project: '#{search_p_result.name}' deleted"
     end 
   end 
 
@@ -97,7 +100,6 @@ class Menu
     new_user = User.create(firstname: first_name, lastname: last_name, email: email, phone: phone) 
     # return to main menu 
   end 
-
 
 
   def get_phone
@@ -152,9 +154,22 @@ class Menu
     t_description = get_task_description()
     t_due_date = get_due_date()
     t_user = search_user?()
-    t_project = find_project() 
-    
-    Task.create(name: t_name, description: t_description, due: t_due_date, user_id: t_user.id, project_id: t_project.id)
+    t_project = search_project() 
+
+    if t_project == nil && t_user == nil 
+      # no user or project 
+      Task.create(name: t_name, description: t_description, due: t_due_date) 
+    elsif t_project == nil && t_user != nil 
+      # user provided, but no project
+      Task.create(name: t_name, description: t_description, due: t_due_date, user_id: t_user.id ) 
+    elsif t_project != nil && t_user == nil 
+      # project provided, but no user
+      Task.create(name: t_name, description: t_description, due: t_due_date, project_id: t_project.id ) 
+    else 
+      # user & project provided 
+
+      Task.create(name: t_name, description: t_description, due: t_due_date, project_id: t_project.id, user_id: t_user.id ) 
+    end 
   end 
 
   def search_user? 
@@ -178,10 +193,10 @@ class Menu
     selected_user 
   end 
 
-  def find_project 
+  def search_project 
     search = prompt.ask("Please enter the project name") {|q| q.required(true) }
     Project.find do |proj|
-      proj.name.match?("^*[#{search}]*$")
+      proj.name.match?("^*(#{search})")
     end 
   end 
 
@@ -231,8 +246,15 @@ class Menu
 
   def view_tasks_by_user 
     user = search_user() 
-    tasks = Task.select {|t| t.user_id == user.id }
-    display_tasks(tasks)
+    if user == nil 
+      puts "No user matched provided  search critirea"
+      if search_again?  
+        view_tasks_by_project() 
+      end 
+    else 
+      tasks = Task.select {|t| t.user_id == user.id }
+      display_tasks(tasks)
+    end 
   end 
 
   def standardize(input_string, chars_to_display)
@@ -245,13 +267,24 @@ class Menu
     end 
   end 
 
+  def search_again? 
+    response = prompt.yes?("Would you like to search again?")
+  end 
+
 
   def view_tasks_by_project
     # prompt for project 
     proj = find_project()
     # display all tasks associated with project 
-    related_tasks = Task.select {|t| t.project_id == proj.id} 
-    display_tasks(related_tasks)
+    if proj == nil 
+      puts "No project matched provided  search critirea"
+      if rsearch_again? 
+        view_tasks_by_project() 
+      end 
+    else 
+      related_tasks = Task.select {|t| t.project_id == proj.id} 
+      display_tasks(related_tasks)
+    end 
     main() 
   end 
 
@@ -281,10 +314,10 @@ class Menu
   end 
 
   def display_tasks(tasks)
-    tasks_str = tasks.mapcl{ |t| "| #{t.id}\t| #{t.name}\t| #{t.due} \t|" }
-    puts "| id\t| name \t\t| due\t\t\t\t|"
-    puts "---------------------------------------------------------"
+    tasks_str = tasks.map{ |t| "| #{t.id}\t| #{standardize(t.name,40)}\t| #{standardize(t.due.to_s,10) } \t|" }
+    puts "| id\t| name                                    \t| due          \t|"
+    puts "-------------------------------------------------------------------------"
     tasks_str.each {|t| puts t }
-    puts "---------------------------------------------------------"
+    puts "-------------------------------------------------------------------------"
   end 
 end 
